@@ -41,6 +41,7 @@ char * strcpy(char * dst, const char * src) {
         *dst = *src;
         if(!*src) break;
     }
+    return d;
 }
 
 int strcmp(const char * s1, const char * s2) {

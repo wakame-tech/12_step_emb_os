@@ -42,6 +42,24 @@ Hello World!
 
 🎉🎉🎉
 
+# note
+## section3
+割り込みベクタの長さが本では `0x000100` だが リンカがエラー出すので `0x000120` にした.
+
+#### ld.scr(抜粋)
+```
+MEMORY 
+{
+    romall(rx)  : o = 0x000000, l = 0x080000 /* 512KB */
+    vectors(r)  : o = 0x000000, l = 0x000120 /* top of ROM */
+    rom(rx)     : o = 0x000120, l = 0x07ff00
+
+    ramall(rwx) : o = 0xffbf20, l = 0x004000 /* 16KB */
+    data(rwx)   : o = 0xfffc20, l = 0x000300
+    stack(rw)   : o = 0xffff00, l = 0x000000 /* end of RAM */
+}
+```
+
 
 ## 参考文献
 - [1stステップ 開発環境の作成](http://ishikuro.hateblo.jp/entry/20120812/1344750799)
