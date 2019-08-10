@@ -1,10 +1,17 @@
 # emb_os
 
 ## 環境構築
-方針を変えて ubuntu Docker container on Vagrant VM on Windows 10 Pro でビルド＆書き込み環境を構築したい
+~~方針を変えて ubuntu Docker container on Vagrant VM on Windows 10 Pro でビルド＆書き込み環境を構築したい~~
+macOS用のドライバ見つかったのでMBPで進めます
 
 ## USBtoSerial driver for macOS 見つかった!
 [これ](https://www.ftdichip.com/Drivers/VCP.htm) の `Mac OS X 10.9 and above`　で `64bit` なやつ
+
+## デバイスが認識されているか
+```
+$ ls /dev/cu*
+/dev/cu.Bluetooth-Incoming-Port  /dev/cu.usbserial-FTRVI7J0
+```
 
 ## コンパイル & イメージ作成 & フラッシュROM書き込み
 ```
@@ -21,6 +28,20 @@ Address Size seems wrong
 .....
 EEPROM Writing is successed.
 ```
+
+## シリアル接続
+```
+sudo cu -l /dev/tty.usbserial-FTRVI7J0
+Connected.
+Hello World!
+Hello World!
+Hello World!
+Hello World!
+Hello World!
+```
+
+🎉🎉🎉
+
 
 ## 参考文献
 - [1stステップ 開発環境の作成](http://ishikuro.hateblo.jp/entry/20120812/1344750799)
