@@ -6,5 +6,5 @@ _start:
     mov.l   #0xffff00, sp
     jsr @_main
 
-l:
-    1b
+1:
+    bra 1b

@@ -1,4 +1,4 @@
-PREFIX	= /usr
+PREFIX	= /usr/local/h8-elf
 ARCH	= h8300-elf
 BINDIR	= $(PREFIX)/bin
 ADDNAME	= $(ARCH)-
@@ -15,7 +15,7 @@ STRIP	= $(BINDIR)/$(ADDNAME)strip
 
 H8WRITE	= ../../tools/h8write/h8write
 
-H8WRITE_SERDEV = /dev/ttySx
+H8WRITE_SERDEV = /dev/cu.usbserial-FTRVI7J0
 
 OBJS  = vector.o startup.o main.o
 OBJS += lib.o serial.o
@@ -30,28 +30,28 @@ CFRAGS += -DKZLOAD
 LFRAGS = -static -T ld.scr -L.
 
 .SUFFIXES: .c .o
-.SUFFIXES .s .o
+.SUFFIXES: .s .o
 
-all :		$(TARGET)
+all :	$(TARGET)
 
 $(TARGET) :	$(OBJS)
-			$(CC) $(OBJS) -o $(TARGET) $(CFRAGS) $(LFRAGS)
-			cp $(TARGET) $(TARGET).elf
-			$(STRIP) $(TARGET)
+	$(CC) $(OBJS) -o $(TARGET) $(CFRAGS) $(LFRAGS)
+	cp $(TARGET) $(TARGET).elf
+	$(STRIP) $(TARGET)
 
-.c.o :		$<
-			$(CC) -c $(CFRAGS) $<
+.c.o : $<
+	$(CC) -c $(CFRAGS) $<
 
-.s.o :		$<
-			$(CC) -c $(CFRAGS) $<
+.s.o : $<
+	$(CC) -c $(CFRAGS) $<
 
 $(TARGET).mot : $(TARGET)
-				$(OBJCOPY) -O srec $(TARGET) $(TARGET).mot
+	$(OBJCOPY) -O srec $(TARGET) $(TARGET).mot
 
-image :			$(TARGET).mot
+image :	$(TARGET).mot
 
-write :			$(TARGET).mot
-				$(H8WRITE) -3069 -f20 $(TARGET).mot $(H8WRITE_SERDEV)
+write :	$(TARGET).mot
+	$(H8WRITE) -3069 -f20 $(TARGET).mot $(H8WRITE_SERDEV)
 
-clean :
-				rm -f $(OBJS) $(TARGET) $(TARGET).elf $(TARGET).mot
+clean : 
+	rm -f $(OBJS) $(TARGET) $(TARGET).elf $(TARGET).mot
