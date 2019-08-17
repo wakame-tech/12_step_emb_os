@@ -63,6 +63,11 @@ MEMORY
 ## section4
 - 本では `cu` でファイル転送する場合 `load` のあとに `~C` と書いてあるがmacOSの場合は `~+`
 
+```bash
+kzload> load
+Meta Z + S
+```
+
 
 ## 参考文献
 - [1stステップ 開発環境の作成](http://ishikuro.hateblo.jp/entry/20120812/1344750799)
