@@ -13,7 +13,7 @@ OBJDUMP	= $(BINDIR)/$(ADDNAME)objdump
 RANLIB	= $(BINDIR)/$(ADDNAME)ranlib
 STRIP	= $(BINDIR)/$(ADDNAME)strip
 
-OBJS  = startup.o main.o
+OBJS  = startup.o main.o interrupt.o
 OBJS += lib.o serial.o
 
 TARGET = kozos
@@ -27,6 +27,7 @@ LFRAGS = -static -T ld.scr -L.
 
 .SUFFIXES: .c .o
 .SUFFIXES: .s .o
+.SUFFIXES: .S .o
 
 all :	$(TARGET)
 
@@ -39,6 +40,9 @@ $(TARGET) :	$(OBJS)
 	$(CC) -c $(CFRAGS) $<
 
 .s.o : $<
+	$(CC) -c $(CFRAGS) $<
+
+.S.o : $<
 	$(CC) -c $(CFRAGS) $<
 
 clean : 
